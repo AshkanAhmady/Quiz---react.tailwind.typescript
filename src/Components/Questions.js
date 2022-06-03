@@ -56,7 +56,11 @@ const Questions = () => {
             );
           })}
         </ul>
-        <div className="flex w-full mt-4 items-center justify-between bg-stone-800 p-2 rounded-lg">
+        <div
+          className={` w-full mt-4 items-center justify-between bg-stone-800 p-2 rounded-lg ${
+            isClicked ? "flex" : "hidden"
+          }`}
+        >
           <span
             className={`font-bold ${
               isTrue ? "text-green-400" : "text-red-400"
