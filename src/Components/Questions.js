@@ -2,11 +2,10 @@ import { useRef, useState } from "react";
 import { useNavigate, useParams } from "react-router-dom";
 import { questions } from "../data";
 
-const Questions = () => {
+const Questions = ({ total, setTotal }) => {
   let [selectedInput, setSelectedInput] = useState();
   let [isClicked, setIsClicked] = useState(false);
   let [isTrue, setIsTrue] = useState();
-  let [total, setTotal] = useState(0);
 
   let { id } = useParams();
   let navigate = useNavigate();
@@ -85,10 +84,15 @@ const Questions = () => {
             {isTrue === true
               ? "Your answer was true"
               : isTrue === false
-              ? "Your answe was false"
+              ? "Your answer was false"
               : ""}
           </span>
-          <button onClick={nextQuestionHandler}>Next</button>
+          <button
+            className="bg-purple-700 text-white py-1 px-5 rounded shadow"
+            onClick={nextQuestionHandler}
+          >
+            Next
+          </button>
         </div>
       </article>
     </div>
