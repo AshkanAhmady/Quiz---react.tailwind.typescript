@@ -44,7 +44,7 @@ const Questions = ({ total, setTotal }) => {
         question: {id}
       </header>
       <article className="p-5">
-        <h1 className="text-3xl mb-5">{question.title}</h1>
+        <h1 className="text-xl text-left md:text-3xl mb-5">{question.title}</h1>
         <ul
           className={`flex relative flex-col items-start gap-y-2 
           ${isClicked ? "after:w-full after:h-full after:absolute" : ""}`}
@@ -63,7 +63,7 @@ const Questions = ({ total, setTotal }) => {
                 />
                 <label
                   htmlFor={item.text}
-                  className={`mr-1 cursor-pointer hover:text-stone-400 ${
+                  className={`text-sm font-light md:text-base cursor-pointer hover:text-stone-400 ${
                     isClicked && item.text == question.trueAnswer
                       ? "text-green-400"
                       : ""
@@ -81,7 +81,7 @@ const Questions = ({ total, setTotal }) => {
           }`}
         >
           <span
-            className={`font-bold ${
+            className={`font-bold text-sm md:text-base ${
               isTrue ? "text-green-400" : "text-red-400"
             }`}
           >
@@ -92,7 +92,7 @@ const Questions = ({ total, setTotal }) => {
               : ""}
           </span>
           <button
-            className="bg-purple-700 text-white py-1 px-5 rounded shadow"
+            className="bg-purple-700 text-sm md:text-base text-white py-1 px-5 rounded shadow"
             onClick={nextQuestionHandler}
           >
             Next
