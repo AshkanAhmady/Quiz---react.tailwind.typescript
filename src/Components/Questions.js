@@ -1,4 +1,4 @@
-import { useRef, useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import { useNavigate, useParams } from "react-router-dom";
 import { questions } from "../data";
 
@@ -11,7 +11,10 @@ const Questions = ({ total, setTotal }) => {
   let navigate = useNavigate();
   let question = questions.find((item) => item.id == id);
 
-  //   console.log(item.text);
+  // reset total true answers
+  useEffect(() => {
+    setTotal(0);
+  }, []);
 
   const changeHandler = (e) => {
     //   stop select another option
@@ -32,6 +35,7 @@ const Questions = ({ total, setTotal }) => {
     navigate(`/questions/${id > questions.length ? "finish" : id}`);
     setIsClicked(false);
     setSelectedInput(null);
+    console.log(total);
   };
 
   return (
