@@ -1,5 +1,6 @@
 import { Route, Routes } from "react-router-dom";
 import EndQuiz from "./Components/EndQuiz";
+import NotFound from "./Components/NotFound";
 import Questions from "./Components/Questions";
 import StartQuiz from "./Components/StartQuiz";
 
@@ -10,6 +11,7 @@ function App() {
         <Route path="/" element={<StartQuiz />} />
         <Route path="/questions/:id" element={<Questions />} />
         <Route path="/questions/finish" element={<EndQuiz />} />
+        <Route path="*" element={<NotFound />} />
       </Routes>
     </div>
   );
