@@ -51,9 +51,9 @@ const Questions = ({ total, setTotal }) => {
         >
           {question.answers.map((item, index) => {
             return (
-              <li key={index}>
+              <li className="flex" key={index}>
                 <input
-                  // hidden
+                  className="cursor-pointer mt-1 mr-2 grid content-center appearance-none bg-transparent text-transparent w-[1.1em] h-[1.1em] ring-2 ring-stone-600 border-2 border-stone-900 rounded-full before:content-none before:w-[0.65em] before:h-[0.65em] before:rounded-full before:bg-[#272f3d] checked:bg-[#6058b6]"
                   type="radio"
                   id={item.text}
                   onChange={changeHandler}
