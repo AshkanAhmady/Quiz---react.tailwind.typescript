@@ -1,23 +1,38 @@
 import { useRef, useState } from "react";
-import { useParams } from "react-router-dom";
+import { useNavigate, useParams } from "react-router-dom";
 import { questions } from "../data";
 
 const Questions = () => {
+  let [selectedInput, setSelectedInput] = useState();
   let [isClicked, setIsClicked] = useState(false);
   let [isTrue, setIsTrue] = useState();
+  let [total, setTotal] = useState(0);
+
   let { id } = useParams();
+  let navigate = useNavigate();
   let question = questions.find((item) => item.id == id);
 
-  const clickHandler = (e) => {
+  //   console.log(item.text);
+
+  const changeHandler = (e) => {
     //   stop select another option
     setIsClicked(true);
+    setSelectedInput(e.target.value);
 
     if (e.target.value !== question.trueAnswer) {
-      e.target.nextSibling.style.color = "red";
+      // e.target.nextSibling.style.color = "red";
       setIsTrue(false);
     } else {
       setIsTrue(true);
+      setTotal(total + 1);
     }
+  };
+
+  const nextQuestionHandler = () => {
+    id = parseInt(id) + 1;
+    navigate(`/questions/${id > questions.length ? "finish" : id}`);
+    setIsClicked(false);
+    setSelectedInput(null);
   };
 
   return (
@@ -33,26 +48,27 @@ const Questions = () => {
         >
           {question.answers.map((item, index) => {
             return (
-              <div key={index}>
+              <li key={index}>
                 <input
-                  onClick={clickHandler}
-                  hidden
-                  name={`answer${id}`}
+                  // hidden
                   type="radio"
                   id={item.text}
+                  onChange={changeHandler}
+                  name={`answer${id}`}
                   value={item.text}
+                  checked={selectedInput === item.text}
                 />
                 <label
+                  htmlFor={item.text}
                   className={`mr-1 cursor-pointer hover:text-stone-400 ${
                     isClicked && item.text == question.trueAnswer
                       ? "text-green-400"
                       : ""
                   }`}
-                  htmlFor={item.text}
                 >
                   {item.text}
                 </label>
-              </div>
+              </li>
             );
           })}
         </ul>
@@ -72,6 +88,7 @@ const Questions = () => {
               ? "Your answe was false"
               : ""}
           </span>
+          <button onClick={nextQuestionHandler}>Next</button>
         </div>
       </article>
     </div>
