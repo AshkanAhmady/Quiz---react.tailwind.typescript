@@ -63,7 +63,7 @@ const Questions = ({ total, setTotal }) => {
                 />
                 <label
                   htmlFor={item.text}
-                  className={`text-sm font-light md:text-base cursor-pointer hover:text-stone-400 ${
+                  className={`text-sm font-light md:text-base cursor-pointer md:hover:text-stone-400 ${
                     isClicked && item.text == question.trueAnswer
                       ? "text-green-400"
                       : ""
