@@ -1,6 +1,7 @@
 import { Link } from "react-router-dom";
+import { EndQuizComponentProps } from "../Interfaces";
 
-const EndQuiz = ({ total }) => {
+const EndQuiz: React.FC<EndQuizComponentProps> = ({ total }) => {
   return (
     <div className="rounded-lg w-80 overflow-hidden bg-stone-900 text-white shadow-md shadow-black  flex flex-col justify-start items-center text-center h-auto">
       <header className="bg-stone-600 text-stone-100 font-bold flex items-center justify-start pl-4 w-full h-10">

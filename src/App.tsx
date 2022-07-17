@@ -6,7 +6,7 @@ import Questions from "./Components/Questions";
 import StartQuiz from "./Components/StartQuiz";
 
 function App() {
-  let [total, setTotal] = useState(0);
+  let [total, setTotal] = useState<number>(0);
 
   return (
     <div className="App w-full min-h-screen bg-stone-200 flex justify-center items-start p-5">

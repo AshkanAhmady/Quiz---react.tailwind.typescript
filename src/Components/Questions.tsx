@@ -1,27 +1,29 @@
-import { useEffect, useRef, useState } from "react";
+import React, { useEffect, useState } from "react";
 import { useNavigate, useParams } from "react-router-dom";
 import { questions } from "../data";
+import { Question, QuestionsComponentProps } from "../Interfaces";
 
-const Questions = ({ total, setTotal }) => {
-  let [selectedInput, setSelectedInput] = useState();
-  let [isClicked, setIsClicked] = useState(false);
-  let [isTrue, setIsTrue] = useState();
+const Questions: React.FC<QuestionsComponentProps> = ({ total, setTotal }) => {
+  let [selectedInput, setSelectedInput] = useState<string | null>();
+  let [isClicked, setIsClicked] = useState<boolean>(false);
+  let [isTrue, setIsTrue] = useState<boolean>();
 
   let { id } = useParams();
+  let identifire = +id!;
   let navigate = useNavigate();
-  let question = questions.find((item) => item.id == id);
+  let question: Question | undefined = questions.find((item) => item.id === identifire);
 
   // reset total true answers
   useEffect(() => {
     setTotal(0);
   }, []);
 
-  const changeHandler = (e) => {
+  const changeHandler = (e: React.FormEvent<HTMLInputElement>) => {
     //   stop select another option
     setIsClicked(true);
-    setSelectedInput(e.target.value);
+    setSelectedInput(e.currentTarget.value);
 
-    if (e.target.value !== question.trueAnswer) {
+    if (e.currentTarget.value !== question!.trueAnswer) {
       // e.target.nextSibling.style.color = "red";
       setIsTrue(false);
     } else {
@@ -31,8 +33,8 @@ const Questions = ({ total, setTotal }) => {
   };
 
   const nextQuestionHandler = () => {
-    id = parseInt(id) + 1;
-    navigate(`/questions/${id > questions.length ? "finish" : id}`);
+    identifire = identifire + 1;
+    navigate(`/questions/${identifire > questions.length ? "finish" : identifire}`);
     setIsClicked(false);
     setSelectedInput(null);
     console.log(total);
@@ -44,12 +46,12 @@ const Questions = ({ total, setTotal }) => {
         question: {id}
       </header>
       <article className="p-5">
-        <h1 className="text-xl text-left md:text-3xl mb-5">{question.title}</h1>
+        <h1 className="text-xl text-left md:text-3xl mb-5">{question!.title}</h1>
         <ul
           className={`flex relative flex-col items-start gap-y-2 
           ${isClicked ? "after:w-full after:h-full after:absolute" : ""}`}
         >
-          {question.answers.map((item, index) => {
+          {question!.answers.map((item, index) => {
             return (
               <li className="flex" key={index}>
                 <input
@@ -64,7 +66,7 @@ const Questions = ({ total, setTotal }) => {
                 <label
                   htmlFor={item.text}
                   className={`text-sm font-light md:text-base cursor-pointer md:hover:text-stone-400 ${
-                    isClicked && item.text == question.trueAnswer
+                    isClicked && item.text === question!.trueAnswer
                       ? "text-green-400"
                       : ""
                   }`}
